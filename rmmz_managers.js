@@ -688,8 +688,8 @@ StorageManager.saveToForage = function(saveName, zip) {
     setTimeout(() => localforage.removeItem(testKey));
     return localforage
         .setItem(testKey, zip)
-        .then(localforage.setItem(key, zip))
-        .then(this.updateForageKeys());
+        .then(() => localforage.setItem(key, zip))
+        .then(() => this.updateForageKeys());
 };
 
 StorageManager.loadFromForage = function(saveName) {
@@ -704,7 +704,7 @@ StorageManager.forageExists = function(saveName) {
 
 StorageManager.removeForage = function(saveName) {
     const key = this.forageKey(saveName);
-    return localforage.removeItem(key).then(this.updateForageKeys());
+    return localforage.removeItem(key).then(() => this.updateForageKeys());
 };
 
 StorageManager.updateForageKeys = function() {
